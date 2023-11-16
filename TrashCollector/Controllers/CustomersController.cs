@@ -50,22 +50,27 @@ namespace TrashCollector.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(CustomerViewModel newCustomer)
         {
-            //if (ModelState.IsValid)
-            //{
-            //    var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            //    var customer = new Customer
-            //    {
-            //        Name = newCustomer.Name,
-            //        IdentityUserId = userId
-            //    };
-            //    _context.Customers.Add(customer);
-            //    _context.SaveChanges();
-            //    return RedirectToAction("Index");
-            //}
-            //else
-            //{
+            if (ModelState.IsValid)
+            {
+                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var customer = new Customer
+                {
+                    FirstName = newCustomer.FirstName,
+                    LastName = newCustomer.LastName,
+                    Address = newCustomer.Address,
+                    ZipCode = newCustomer.ZipCode,
+                    PreferredDay = newCustomer.PreferredDay,
+                    CurrentStatus = Status.Active,
+                    IdentityUserId = userId
+                };
+                _context.Customers.Add(customer);
+                _context.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            else
+            {
                 return View(newCustomer);
-            //}
+            }
         }
 
         // GET: CustomersController/Edit/5
