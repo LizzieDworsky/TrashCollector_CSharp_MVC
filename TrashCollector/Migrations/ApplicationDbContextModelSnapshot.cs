@@ -47,13 +47,13 @@ namespace TrashCollector.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "9c4155ed-43c1-4c37-b231-86dc070c3c85",
+                            Id = "d886d2b2-3b50-479c-acdb-80b602bb57a5",
                             Name = "Employee",
                             NormalizedName = "EMPLOYEE"
                         },
                         new
                         {
-                            Id = "85a5ed49-d614-4a0f-b8b8-5be4e5ee9134",
+                            Id = "e7e0afc2-6c02-45e1-b31c-c659673dd12b",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         });
@@ -231,13 +231,30 @@ namespace TrashCollector.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("CurrentStatus")
+                        .HasColumnType("int");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<string>("IdentityUserId")
                         .IsRequired()
                         .HasColumnType("varchar(255)");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("longtext");
+
+                    b.Property<int>("PreferredDay")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ZipCode")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

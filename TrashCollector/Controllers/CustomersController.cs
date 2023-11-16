@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Security.Claims;
 using TrashCollector.Data;
 using TrashCollector.Models;
+using DayOfWeek = TrashCollector.Models.DayOfWeek;
 
 namespace TrashCollector.Controllers
 {
@@ -39,6 +41,7 @@ namespace TrashCollector.Controllers
         // GET: CustomersController/Create
         public ActionResult Create()
         {
+            ViewBag.PreferredDay = new SelectList(Enum.GetValues(typeof(DayOfWeek)));
             return View();
         }
 
@@ -47,22 +50,22 @@ namespace TrashCollector.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(CustomerViewModel newCustomer)
         {
-            if (ModelState.IsValid)
-            {
-                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-                var customer = new Customer
-                {
-                    Name = newCustomer.Name,
-                    IdentityUserId = userId
-                };
-                _context.Customers.Add(customer);
-                _context.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            else
-            {
+            //if (ModelState.IsValid)
+            //{
+            //    var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            //    var customer = new Customer
+            //    {
+            //        Name = newCustomer.Name,
+            //        IdentityUserId = userId
+            //    };
+            //    _context.Customers.Add(customer);
+            //    _context.SaveChanges();
+            //    return RedirectToAction("Index");
+            //}
+            //else
+            //{
                 return View(newCustomer);
-            }
+            //}
         }
 
         // GET: CustomersController/Edit/5

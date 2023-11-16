@@ -169,13 +169,39 @@ namespace TrashCollector.Migrations
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
 
+            migrationBuilder.CreateTable(
+                name: "Customers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    FirstName = table.Column<string>(type: "longtext", nullable: false),
+                    LastName = table.Column<string>(type: "longtext", nullable: false),
+                    Address = table.Column<string>(type: "longtext", nullable: false),
+                    ZipCode = table.Column<int>(type: "int", nullable: false),
+                    PreferredDay = table.Column<int>(type: "int", nullable: false),
+                    CurrentStatus = table.Column<int>(type: "int", nullable: false),
+                    IdentityUserId = table.Column<string>(type: "varchar(255)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Customers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Customers_AspNetUsers_IdentityUserId",
+                        column: x => x.IdentityUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
+
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "65aa4580-5e7b-4a9a-9169-d942edf9967d", null, "Employee", "EMPLOYEE" },
-                    { "8572657a-d4dd-434f-8bb3-22c6cf947dc6", null, "Customer", "CUSTOMER" }
+                    { "d886d2b2-3b50-479c-acdb-80b602bb57a5", null, "Employee", "EMPLOYEE" },
+                    { "e7e0afc2-6c02-45e1-b31c-c659673dd12b", null, "Customer", "CUSTOMER" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -214,6 +240,11 @@ namespace TrashCollector.Migrations
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Customers_IdentityUserId",
+                table: "Customers",
+                column: "IdentityUserId");
         }
 
         /// <inheritdoc />
@@ -233,6 +264,9 @@ namespace TrashCollector.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "Customers");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
